@@ -208,10 +208,14 @@ func (provider *FakeProvider) createZipArchive(t *testing.T, providerDir string)
 
 	zipFile, err := os.Create(filepath.Join(providerDir, provider.archiveName()))
 	require.NoError(t, err)
-	defer require.NoError(t, zipFile.Close())
+
+	// This can error, but we don't really care if it does.
+	defer zipFile.Close() //nolint:errcheck
 
 	zipWriter := zip.NewWriter(zipFile)
-	defer require.NoError(t, zipWriter.Close())
+
+	// This can error, but we don't really care if it does.
+	defer zipWriter.Close() //nolint:errcheck
 
 	fileInfo, err := file.Stat()
 	require.NoError(t, err)
