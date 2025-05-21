@@ -273,7 +273,7 @@ func TestTerragruntSkipConfirmExternalDependencies(t *testing.T) {
 	testPath := util.JoinPath(tmpEnvPath, testFixtureExternalDependency)
 
 	t.Cleanup(func() {
-		os.RemoveAll(filepath.ToSlash("/tmp/external-46521694"))
+		require.NoError(t, os.RemoveAll(filepath.ToSlash("/tmp/external-46521694")))
 	})
 	require.NoError(t, os.Mkdir(filepath.ToSlash("/tmp/external-46521694"), 0755))
 

@@ -408,8 +408,8 @@ func TestRenderJSONConfigRunAll(t *testing.T) {
 	bazJSONOut := filepath.Join(workDir, "baz", "terragrunt.rendered.json")
 	rootChildJSONOut := filepath.Join(workDir, "terragrunt.rendered.json")
 
-	defer os.Remove(bazJSONOut)
-	defer os.Remove(rootChildJSONOut)
+	defer require.NoError(t, os.Remove(bazJSONOut))
+	defer require.NoError(t, os.Remove(rootChildJSONOut))
 
 	helpers.RunTerragrunt(t, "terragrunt run --all --non-interactive --log-level trace --working-dir "+workDir+" -- apply -auto-approve")
 
@@ -463,8 +463,8 @@ func TestRenderJSONConfigRunAllWithCLIRedesign(t *testing.T) {
 	bazJSONOut := filepath.Join(workDir, "baz", "terragrunt.rendered.json")
 	rootChildJSONOut := filepath.Join(workDir, "terragrunt.rendered.json")
 
-	defer os.Remove(bazJSONOut)
-	defer os.Remove(rootChildJSONOut)
+	defer require.NoError(t, os.Remove(bazJSONOut))
+	defer require.NoError(t, os.Remove(rootChildJSONOut))
 
 	helpers.RunTerragrunt(t, "terragrunt run --all apply --non-interactive --log-level trace --working-dir "+workDir)
 

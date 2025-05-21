@@ -12,6 +12,7 @@ import (
 
 	"github.com/gruntwork-io/terragrunt/internal/cas"
 	"github.com/gruntwork-io/terragrunt/pkg/log"
+	"github.com/stretchr/testify/require"
 )
 
 func BenchmarkClone(b *testing.B) {
@@ -176,7 +177,7 @@ func BenchmarkGitOperations(b *testing.B) {
 			b.Fatal(err)
 		}
 
-		defer os.Remove(tmpFile)
+		defer require.NoError(b, os.Remove(tmpFile))
 		defer tmp.Close()
 
 		b.ResetTimer()
