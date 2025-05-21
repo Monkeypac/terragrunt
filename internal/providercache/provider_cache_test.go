@@ -125,7 +125,9 @@ func TestProviderCache(t *testing.T) {
 			server := cache.NewServer(tc.opts...)
 			ln, err := server.Listen()
 			require.NoError(t, err)
-			defer require.NoError(t, ln.Close())
+
+			// This can error, but we don't really care if it does.
+			defer ln.Close() //nolint:errcheck
 
 			errGroup.Go(func() error {
 				return server.Run(ctx, ln)
@@ -144,7 +146,9 @@ func TestProviderCache(t *testing.T) {
 
 			resp, err := http.DefaultClient.Do(req)
 			require.NoError(t, err)
-			defer require.NoError(t, resp.Body.Close())
+
+			// This can error, but we don't really care if it does.
+			defer resp.Body.Close() //nolint:errcheck
 
 			assert.Equal(t, tc.expectedStatusCode, resp.StatusCode)
 
